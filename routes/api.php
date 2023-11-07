@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\LatestNewsController;
+use App\Http\Controllers\Api\FooterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\InstitutionsController;
@@ -46,5 +47,7 @@ Route::get("/latestNews/{id}" , [LatestNewsController::class , 'show']);
 //Route to show some news on the main page
 Route::get("/FewLatestNews" , [LatestNewsController::class ,'view']);
 
+
+Route::get("/footerLinks" , [FooterController::class , 'index']);
 
 
