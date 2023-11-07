@@ -1,10 +1,10 @@
 <?php
 return [
-    'email'     => ['path' => 'public/icons/envelope-regular.svg'],
-    'telephone' => ['path' => 'public/icons/phone-solid.svg'],
-    'location'  => ['path' => 'public/icons/location-dot-solid.svg'],
-    'facebook'  => ['path' => 'public/icons/facebook-f.svg'],
-    'instagram' => ['path' => 'public/icons/instagram.svg'],
-    'linkedin'  => ['path' => 'public/icons/linkedin-in.svg'],
-    'x'         => ['path' => 'public/icons/x-twitter.svg'],
+    'email'     => ['path' => 'icons/envelope-regular.svg'],
+    'telephone' => ['path' => 'icons/phone-solid.svg'],
+    'location'  => ['path' => 'icons/location-dot-solid.svg'],
+    'facebook'  => ['path' => 'icons/facebook-f.svg'],
+    'instagram' => ['path' => 'icons/instagram.svg'],
+    'linkedin'  => ['path' => 'icons/linkedin-in.svg'],
+    'x'         => ['path' => 'icons/x-twitter.svg'],
 ];
