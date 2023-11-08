@@ -29,11 +29,15 @@
 @endsection
 
 @section('Content')
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="{{route('institutions.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="Category">Category</label>
-            <input type="text" name="category_id" class="form-control">
+            <select id="category" class="custom-select mr-sm-2" name="category_id">
+                @foreach ($category as $item)
+                <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="name">Name</label>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Update the latest news
+    create Institutions
 @endsection
 
 @section('css')
@@ -9,19 +9,19 @@
 @endsection
 
 @section('Page Name')
-    Update
+    Create
 @endsection
 
 @section('title_page')
-    آخر الأخبار
+    مؤسسات التعليم العالي
 @endsection
 
 @section('title_page2')
-    تعديل
+    إنشاء
 @endsection
 
 @section('sidebar link name')
-    Latest News
+    Institutions
 @endsection
 
 @section('sidebar')
@@ -29,12 +29,11 @@
 @endsection
 
 @section('Content')
-    <form method="POST" action="{{route('latest_news.update',$edit_lnew[0]->id)}}" enctype="multipart/form-data">
+    <form method="POST" action="{{route('categories.store')}}" enctype="multipart/form-data">
         @csrf
-        @method('PATCH')
         <div class="form-group">
-            <label for="title">Title</label>
-            <textarea name="title"  class ="form-control" id="title" cols="20" rows="7">{{$edit_lnew[0]->title}}</textarea>
+            <label for="name">Category's Name</label>
+            <input type="text" name="name" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

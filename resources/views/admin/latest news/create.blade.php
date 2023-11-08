@@ -29,7 +29,7 @@
 @endsection
 
 @section('Content')
-    <form method="POST" action="{{route()}}" enctype="multipart/form-data">
+    <form method="POST" action="{{route('latest_news.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
