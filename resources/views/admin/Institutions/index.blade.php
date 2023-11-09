@@ -51,23 +51,20 @@
                     <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Category</th>
                       <th>Name</th>
-                      <th>Delete</th>
+                      <th>Category</th>
+                      <th>Action</th>
                     </tr>
                     </thead>
-
-
                    <tbody>
-
-                    {{-- @foreach (  ) --}}
+                    @foreach ($inst as $item)
                     <tr>
-
-                        <td></td>
-                        <td></td>
-                        <td><a href="{{}}"> </td>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->category->name}}</td>
                         <td>
-                            <form method="post" action="" enctype="multipart/form-data">
+                            <a href="{{route('institutions.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
+                            <form method="post" action="{{route('institutions.destroy',$item->id)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('DELETE')
 
@@ -75,16 +72,13 @@
                             </form>
                         </td>
                     </tr>
-
-                    {{-- @endforeach --}}
+                     @endforeach
                    </tbody>
-
                   </table>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-
 @endsection
 
 @section('scripts')

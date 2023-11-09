@@ -1,84 +1,66 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\LatestNews;
 use Illuminate\Http\Request;
+use App\Http\Requests\LatestNewsRequest;
+use App\Http\Controllers\Api\Controller;
 
 class LatestNewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+//------go to main page and show all the latest news------------------//
     public function index()
     {
-        //
+        //get all latest news table records
+        $lnews = LatestNews::all();
+        return view('admin.latest news.index',compact('lnews'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+//------go to the create page------------------//
     public function create()
     {
-        //
+        return view('admin.latest news.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+//------store the requested data from the create page------------------//
+    public function store(LatestNewsRequest $request)
     {
-        //
+        $lnews = $request->validated();//validation
+
+        //check if this record already exists
+        $existing_lnews = LatestNews::where('title',$lnews)->first();
+
+        if($existing_lnews)
+        {
+            return redirect()->back()->with('alert','this latest news is added already');
+        }
+        //if it doesn't exist break the if statement and create it
+        $n_lnews = LatestNews::create($lnews);
+
+        return redirect(route('latest_news.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+//------go to the edit page------------------//
     public function edit($id)
     {
-        //
+        $edit_lnew = LatestNews::where('id',$id)->get();//get the lnew that has the same id
+        return view('admin.latest news.edit',compact('edit_lnew'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+//------update an existing latest news record------------------//
+    public function update(LatestNewsRequest $request, $id)
     {
-        //
+        $updated_lnew = $request->validated();
+        $old_lnew = LatestNews::where('id',$id)->first();//find the desired record
+        $old_lnew->update($updated_lnew);//update the old values(old_lnew) with the new (updated_lnew)
+        return redirect(route('latest_news.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+//------remove an existing latest news record------------------//
     public function destroy($id)
     {
-        //
+        $removed_lnew = LatestNews::where('id',$id)->delete();//find the desired record and delete it
+        return redirect()->back();
     }
 }

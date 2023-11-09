@@ -29,7 +29,7 @@
 @endsection
 
 @section('Content')
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="{{route('news_feed.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
@@ -45,7 +45,11 @@
         </div>
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="text" name="newsDate" class="form-control" placeholder="Enter Date">
+            <input type="date" name="newsDate" class="form-control" placeholder="Enter Date">
+        </div>
+        <div class="form-group">
+            <label for="order">Path</label>
+            <input type="text" name="path" class="form-control" placeholder="Enter Order">
         </div>
         <div class="form-group">
             <label for="order">Order</label>

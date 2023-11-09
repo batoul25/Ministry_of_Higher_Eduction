@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class NewsFeedRequest extends FormRequest
 {
@@ -18,15 +20,13 @@ class NewsFeedRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-            'filename' => ['required','image|mimes:jpg,png,jpeg,gif,svg','max:2048'],
             'title'    => ['required'  , 'string' , 'min:20' , 'max:400'] ,
             'place'    => ['required' , 'string' , 'min:3' , 'max:20'] ,
-            'newsDate' => ['required' ,'string'] ,
-            'order'    => ['numeric' , 'integer' , 'min:1' , 'between:1,20']
+            'order'    => ['numeric' , 'integer' , 'min:1' , 'between:1,20'],
+            'path'     => ['required','string', 'min:10', 'max:100'],
         ];
     }
-    
+
      //if there is an error with the validation display the error as a Json response.
      protected function failedValidation(Validator $validator)
      {

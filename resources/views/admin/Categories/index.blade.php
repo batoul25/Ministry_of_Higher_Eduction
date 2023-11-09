@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    View All Breaking News
+    View All Institutions
 @endsection
 
 @section('css')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('title_page')
-    أخبار عاجلة
+   مؤسسات التعليم العالي
 @endsection
 
 @section('title_page2')
@@ -21,7 +21,7 @@
 @endsection
 
 @section('sidebar link name')
-    Breaking News
+    Institutions
 @endsection
 
 @section('sidebar')
@@ -51,27 +51,18 @@
                     <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Title</th>
-                      <th>Path</th>
-                      <th>Image</th>
-                      <th>Descrption</th>
-                      <th>Actions</th>
+                      <th>Name</th>
+                      <th>Action</th>
                     </tr>
                     </thead>
-
-
                    <tbody>
-
-                    @foreach ($bnews as $item)
+                    @foreach ($cate as $item)
                     <tr>
                         <td>{{$item->id}}</td>
-                        <td>{{$item->title}}</td>
-                        <td><a href="{{$item->path}}">{{$item->path}}</td>
-                        <td><img src="{{$item->filename}}" alt="">{{$item->filename}}</td>
-                        <td>{{$item->description}}</td>
+                        <td>{{$item->name}}</td>
                         <td>
-                            <a href="{{route('breaking_news.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
-                            <form method="post" action="{{route('breaking_news.destroy',$item->id)}}" enctype="multipart/form-data">
+                            <a href="{{route('categories.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
+                            <form method="post" action="{{route('categories.destroy',$item->id)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('DELETE')
 
@@ -79,41 +70,36 @@
                             </form>
                         </td>
                     </tr>
-
                      @endforeach
                    </tbody>
-
                   </table>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-            </div>
-          </div>
-        </div>
 @endsection
 
 @section('scripts')
 <!-- DataTables  & Plugins -->
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/jszip/jszip.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/pdfmake/pdfmake.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/pdfmake/vfs_fonts.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/jszip/jszip.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script type = "text/javascript" src="{{URL::asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
 <!-- Page specific script -->
 <script>
     $(function () {
       $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
       $('#example2').DataTable({
         "paging": true,
@@ -125,5 +111,5 @@
         "responsive": true,
       });
     });
-</script>
+  </script>
 @endsection

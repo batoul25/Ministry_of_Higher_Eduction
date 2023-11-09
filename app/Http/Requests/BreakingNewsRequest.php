@@ -21,8 +21,8 @@ class BreakingNewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'filename' => ['required','string', 'min:5', 'max:50'],
-            'path'     => ['required','string', 'min:15', 'max:100'],
+            'filename' => ['required','image|mimes:jpg,png,jpeg,gif,svg','max:2048'],
+            'path'     => ['required','string', 'min:10', 'max:100'],
             'title'     => ['required','string', 'min:15', 'max:100'],
             'description'     => ['required','string', 'min:15', 'max:300'],
         ];

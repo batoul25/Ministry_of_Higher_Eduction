@@ -29,7 +29,7 @@
 @endsection
 
 @section('Content')
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="{{route('breaking_news.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
@@ -40,8 +40,12 @@
             <input type="file" name="filename" class="form-control-file">
         </div>
         <div class="form-group">
-            <label for="descrption">Descrption</label>
-            <textarea name="descrption"  class ="form-control" id="title" cols="20" rows="7"></textarea>
+            <label for="path">path</label>
+            <input type="text" name="path" class="form-control-file">
+        </div>
+        <div class="form-group">
+            <label for="description">Descrption</label>
+            <textarea name="description"  class ="form-control" id="title" cols="20" rows="7"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

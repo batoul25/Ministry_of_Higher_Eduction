@@ -52,28 +52,25 @@
                     <tr>
                       <th>Id</th>
                       <th>Title</th>
-                      <th>Image</th>
+                      <th>path</th>
                       <th>Place</th>
                       <th>Date</th>
                       <th>Order</th>
-                      <th>Delete</th>
+                      <th>Action</th>
                     </tr>
                     </thead>
-
-
                    <tbody>
-
-                    {{-- @foreach (  ) --}}
+                    @foreach ($newsf as $item)
                     <tr>
-
-                        <td></td>
-                        <td><a href="{{}}"> </td>
-                        <td><img src="" alt=""></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->title}}</td>
+                        <td>{{$item->path}}</td>
+                        <td>{{$item->place}}</td>
+                        <td>{{$item->newsDate}}</td>
+                        <td>{{$item->order}}</td>
                         <td>
-                            <form method="post" action="" enctype="multipart/form-data">
+                            <a href="{{route('news_feed.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
+                            <form method="post" action="{{route('news_feed.destroy',$item->id)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('DELETE')
 
@@ -82,7 +79,7 @@
                         </td>
                     </tr>
 
-                    {{-- @endforeach --}}
+                   @endforeach
                    </tbody>
 
                   </table>

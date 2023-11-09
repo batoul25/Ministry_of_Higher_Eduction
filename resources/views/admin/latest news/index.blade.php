@@ -52,29 +52,28 @@
                     <tr>
                       <th>Id</th>
                       <th>Title</th>
-                      <th>Delete</th>
+                      <th>Action</th>
                     </tr>
                     </thead>
 
 
                    <tbody>
 
-                    {{-- @foreach (  ) --}}
+                    @foreach ($lnews as $item)
                     <tr>
-
-                        <td></td>
-                        <td><a href="{{}}"> </td>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->title}}</td>
                         <td>
-                            <form method="post" action="" enctype="multipart/form-data">
+                            <a href="{{route('latest_news.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
+                            <form method="post" action="{{route('latest_news.destroy',$item->id)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('DELETE')
-
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>
 
-                    {{-- @endforeach --}}
+                    @endforeach
                    </tbody>
 
                   </table>
