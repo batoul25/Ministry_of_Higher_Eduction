@@ -20,6 +20,7 @@ class BreakingNewsController extends Controller
           //in this condition we are checking if the breakingnews table is empty or not.
           if($breaknews->isNotEmpty())
           {
+
               return $this->successResponse(BreakingNewsResource::collection($breaknews),'Data fetched successfully',200);
           }
 
@@ -27,26 +28,15 @@ class BreakingNewsController extends Controller
     }
 
 
-    public function store(BreakingNewsRequest $request)
+    public function show($id)
     {
         //
+        try{
+        $breaknews = BreakingNews::find($id);
+        return $this->successResponse(new BreakingNewsResource($breaknews), 'Retrived Successfully');
+    }catch(\Exception $exp){
+        return $this->errorResponse('The Breaking News is not found',401);
     }
+}
 
-
-    public function show(BreakingNewsRequest $breakingNews)
-    {
-        //
-    }
-
-
-    public function update(BreakingNewsRequest $request,$id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 }

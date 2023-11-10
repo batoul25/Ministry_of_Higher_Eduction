@@ -16,8 +16,9 @@ class BreakingNewsResource extends JsonResource
     {
         return [
             'image' => $this->filename,
+            'path'  => $this->path,
             'title' => $this->title,
-            'descrption' => $this->descrption,
+            'description' => $this->description,
         ];
     }
 }

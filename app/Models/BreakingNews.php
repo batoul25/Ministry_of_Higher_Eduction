@@ -9,6 +9,6 @@ class BreakingNews extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'filename' , 'path' , 'title' , 'descrption'
+        'filename' , 'path' , 'title' , 'description'
     ];
 }

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SeviceResource extends JsonResource
+class ServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,6 +16,7 @@ class SeviceResource extends JsonResource
     {
         return [
             'logo' => $this->logo ,
+            'path' => $this->path,
             'name' => $this->name
         ];
     }
