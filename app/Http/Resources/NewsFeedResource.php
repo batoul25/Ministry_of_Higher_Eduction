@@ -15,10 +15,12 @@ class NewsFeedResource extends JsonResource
     public function toArray($request)
     {
         return[
-            'filename' => $this->filename ,
+            'image'    => $this->filename ,
+            'path'     => $this->path,
             'title'    => $this->title ,
             'place'    => $this->place ,
-            'newsDate' => $this->newsDate
+            'newsDate' => $this->newsDate,
+            'order'    => $this->order,
         ];
     }
 }

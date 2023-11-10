@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\LatestNewsController;
+use App\Http\Controllers\Api\FooterController;
+use App\Http\Controllers\Api\ServicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\InstitutionsController;
@@ -28,16 +30,22 @@ Route::delete('/inst/{instid}',[InstitutionsController::class,'destroy']);
 //remove all Institutions
 Route::get('/destroyall',[InstitutionsController::class,'destroy_all']);
 });
+
 //show all categories
 Route::get('/cate',[InstitutionCategoryController::class,'index']);
+
 //show all newsfeed
 Route::get('/newf',[NewsFeedController::class,'index']);
+//show news feed by specific id
+Route::get('/newf/{id}',[NewsFeedController::class,'show']);
+
+//Show all Services
+Route::get('/services' , [ServicesController::class , 'index']);
+//Show Service by specific id
+Route::get('/services/{id}' , [ServicesController::class , 'show']);
+
 //show all breakingnews
 Route::get('/breakn',[BreakingNewsController::class,'index']);
-
-
-
-
 
 //Route to get all the latest news
 Route::get("/AllLatestNews" , [LatestNewsController::class , 'index']);
@@ -46,5 +54,7 @@ Route::get("/latestNews/{id}" , [LatestNewsController::class , 'show']);
 //Route to show some news on the main page
 Route::get("/FewLatestNews" , [LatestNewsController::class ,'view']);
 
+//Show All the footer links
+Route::get("/footerLinks" , [FooterController::class , 'index']);
 
 

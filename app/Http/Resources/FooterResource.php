@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SeviceResource extends JsonResource
+class FooterResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,9 @@ class SeviceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'logo' => $this->logo ,
-            'name' => $this->name
+            'title' => $this->title,
+            'url' => $this->url,
+            'path' => $this->icon
         ];
     }
 }
