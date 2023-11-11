@@ -19,14 +19,10 @@
 @section('title_page2')
     إنشاء
 @endsection
-
-@section('sidebar link name')
-    Institutions
-@endsection
-
 @section('sidebar')
 
-@endsection
+
+  @endsection
 
 @section('Content')
     <form method="POST" action="{{route('institutions.store')}}" enctype="multipart/form-data">

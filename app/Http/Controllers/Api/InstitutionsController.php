@@ -54,15 +54,14 @@ class InstitutionsController extends Controller
     }
 
     //-------show a specific existing Institution--------//
-    public function show($id)
+    public function show($category_id)
     {
         //find the institution by id.
-        $institutions = Institutions::with('category')->find($id);
-        //in this condition we are checking if the institution record exits or not.
-        if($institutions)
-        {
-            return $this->successResponse($institutions,'Data fetched successfully',200);
-        }
+        $institutions = Institutions::where('category_id' , $category_id)->get();
+      // Check if any institutions exist
+    if ($institutions->count() > 0) {
+        return $this->successResponse(InstitutionResource::collection($institutions), 'Data fetched successfully', 200);
+    }
         //if it does not exist it will break the if statement and return the error response
         return $this->errorResponse('this institution doesnt exists',401);
     }

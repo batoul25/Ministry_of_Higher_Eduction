@@ -41,7 +41,7 @@ class NewsFeedController extends Controller
             $news = NewsFeed::find($id);
             return $this->successResponse(new NewsFeedResource($news),'Retrived Successfully');
         }catch(\Exception $exc){
-            return $this->errorResponse('The news is not found' , 404);
+            return $this->errorResponse('The news is not found' , 401);
         }
 
     }

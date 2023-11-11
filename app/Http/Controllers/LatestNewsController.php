@@ -5,6 +5,7 @@ use App\Models\LatestNews;
 use Illuminate\Http\Request;
 use App\Http\Requests\LatestNewsRequest;
 use App\Http\Controllers\Api\Controller;
+use Illuminate\Support\Facades\Session;
 
 class LatestNewsController extends Controller
 {
@@ -37,7 +38,7 @@ class LatestNewsController extends Controller
         }
         //if it doesn't exist break the if statement and create it
         $n_lnews = LatestNews::create($lnews);
-
+        Session::flash('created-message', 'Latest news created successfully.');
         return redirect(route('latest_news.index'));
     }
 
@@ -54,6 +55,7 @@ class LatestNewsController extends Controller
         $updated_lnew = $request->validated();
         $old_lnew = LatestNews::where('id',$id)->first();//find the desired record
         $old_lnew->update($updated_lnew);//update the old values(old_lnew) with the new (updated_lnew)
+        Session::flash('updated-message', 'Latest news updated successfully.');
         return redirect(route('latest_news.index'));
     }
 
@@ -61,6 +63,8 @@ class LatestNewsController extends Controller
     public function destroy($id)
     {
         $removed_lnew = LatestNews::where('id',$id)->delete();//find the desired record and delete it
+        Session::flash('message', 'Latest news deleted successfully.');
+
         return redirect()->back();
     }
 }

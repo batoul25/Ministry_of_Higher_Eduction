@@ -20,13 +20,9 @@
     عرض الكل
 @endsection
 
-@section('sidebar link name')
-    Institutions
-@endsection
-
 @section('sidebar')
 
-@endsection
+  @endsection
 
 @section('Content')
     @if(session('message'))
@@ -52,6 +48,7 @@
                     <tr>
                       <th>Id</th>
                       <th>Name</th>
+                      <th>Order</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -60,6 +57,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->name}}</td>
+                        <td>{{$item->order}}</td>
                         <td>
                             <a href="{{route('categories.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
                             <form method="post" action="{{route('categories.destroy',$item->id)}}" enctype="multipart/form-data">

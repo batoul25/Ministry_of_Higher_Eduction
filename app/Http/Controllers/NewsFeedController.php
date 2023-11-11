@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\NewsFeed;
-use Illuminate\Http\Request;
 use App\Http\Requests\NewsFeedRequest;
 use App\Http\Controllers\Api\Controller;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class NewsFeedController extends Controller
 {
@@ -24,30 +25,46 @@ class NewsFeedController extends Controller
     }
 
 //------store the requested data from the create page------------------//
-    public function store(NewsFeedRequest $request)
-    {
-        $newsf = $request->validated();
-        //here we are using the "file" function to get the url of the image and
-        //store the image file using "store" function in 'public' disk inside 'images' folder.
-        $newsf_image = $request->file('filename')->store('img','public');
-        $existing_newsf = NewsFeed::where('title',$newsf)->first();
-        //check if this news has been added before or not
-        if($existing_newsf)
-        {
-            return redirect()->back()->with('alert','this feed is added already');
-        }
+public function store(NewsFeedRequest $request)
+{
+    $newsf = $request->validated();
 
-        $n_newsf = NewsFeed::create([
-            'title' => $newsf['title'],
-            'filename'=>$newsf_image,
-            'order' => $newsf['order'],
-            'place'=>$newsf['place'],
-            'path'=>$image_url,
-            'newsDate'=>$newsf['newsDate']
-        ]);
-        return redirect(route('news_feed.index'));
+    // Check if a file was uploaded
+    if ($request->hasFile('filename')) {
+        $file = $request->file('filename');
+
+        // Ensure the file is valid
+        if ($file->isValid()) {
+            // Store the file in the 'public' disk inside the 'images' folder
+            $newsf_image = $file->storeAs('images', $file->getClientOriginalName(), 'public');
+        } else {
+            // File is not valid, handle the error
+            return redirect()->back()->with('alert', 'Invalid file. Please upload a valid image file.');
+        }
+    } else {
+        // No file was uploaded, handle the error
+        return redirect()->back()->with('alert', 'No file uploaded. Please select an image file to upload.');
     }
 
+    $existing_newsf = NewsFeed::where('title', $newsf['title'])->first();
+
+    // Check if this news feed has been added before or not
+    if ($existing_newsf) {
+        return redirect()->back()->with('alert', 'This feed is already added.');
+    }
+
+    $n_newsf = NewsFeed::create([
+        'title' => $newsf['title'],
+        'filename' => $newsf_image,
+        'order' => $newsf['order'],
+        'place' => $newsf['place'],
+        'path' => $file->getClientOriginalName(),
+        'newsDate' => isset($newsf['newsDate']) ? $newsf['newsDate'] : null
+    ]);
+    // Flash a success message to the session
+    Session::flash('created-message', 'News feed created successfully.');
+    return redirect(route('news_feed.index'));
+}
 //------go to the edit page------------------//
     public function edit($id)
     {
@@ -61,13 +78,32 @@ class NewsFeedController extends Controller
         $updated_newsf = $request->validated();
         $old_newsf = NewsFeed::where('id',$id)->first();//find the desired record
         $old_newsf->update($updated_newsf);//update the old values(old_newsf) with the new (updated_newsf)
+        // Flash a success message to the session
+        Session::flash('updated-message', 'News feed updated successfully.');
         return redirect(route('news_feed.index'));
     }
 
 //------remove an existing news feed record------------------//
-    public function destroy($id)
-    {
-        $removed_newsf = NewsFeed::where('id',$id)->delete();//find the desired record and delete it
-        return redirect()->back();
+public function destroy($id)
+{
+    $newsFeed = NewsFeed::find($id);
+
+    if (!$newsFeed) {
+        return redirect()->back()->with('alert', 'News feed not found.');
     }
+
+    // Delete the associated image file
+
+$filePath = 'public/images/' . $newsFeed->filename;
+if (Storage::exists($filePath)) {
+    Storage::delete($filePath);
+}
+    // Delete the NewsFeed record
+    $removed_newsf = $newsFeed->delete();
+
+    // Flash a success message to the session
+    Session::flash('message', 'News feed deleted successfully.');
+
+    return redirect()->back();
+}
 }

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    View All Breaking News
+    View All Services
 @endsection
 
 @section('css')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('title_page')
-   أخبار عاجلة
+    خدمات
 @endsection
 
 @section('title_page2')
@@ -22,15 +22,14 @@
 
 @section('sidebar')
 
-
   @endsection
-
 @section('Content')
+
     @if(session('message'))
        <div class="alert alert-danger"> {{session('message')}} </div>
-    @elseif(session('created_message'))
+    @elseif(session('created-message'))
        <div class="alert alert-success"> {{session('created-message')}} </div>
-    @elseif(session('updated_message'))
+    @elseif(session('updated-message'))
        <div class="alert alert-success"> {{session('updated-message')}} </div>
     @endif
     <!-- Main content -->
@@ -48,27 +47,22 @@
                     <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Title</th>
-                      <th>Image</th>
-                      {{-- <th>Path</th>
-                      <th>Description</th> --}}
+                      <th>name</th>
+                      <th>logo</th>
+                      <th>path</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                    <tbody>
-                    @foreach ($bnews as $item)
+                    @foreach ($services as $item)
                     <tr>
                         <td>{{$item->id}}</td>
-                        <td>{{$item->title}}</td>
-                        <td><img src="{{$item->filename}}" height="30"></td>
-                        {{-- <td>{{$item->path}}</td></td>
-
-                        <td>{{$item->description}}</td> --}}
-
-
+                        <td>{{$item->name}}</td>
+                        <td><img src="{{$item->logo}}"></td>
+                        <td>{{$item->path}}</td>
                         <td>
-                            <a href="{{route('breaking_news.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
-                            <form method="post" action="{{route('breaking_news.destroy',$item->id)}}" enctype="multipart/form-data">
+                            <a href="{{route('services.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
+                            <form method="post" action="{{route('services.destroy',$item->id)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('DELETE')
 
@@ -76,13 +70,16 @@
                             </form>
                         </td>
                     </tr>
-                     @endforeach
+
+                   @endforeach
                    </tbody>
+
                   </table>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
+
 @endsection
 
 @section('scripts')

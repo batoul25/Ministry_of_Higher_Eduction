@@ -20,13 +20,10 @@
     تعديل
 @endsection
 
-@section('sidebar link name')
-    News Feed
-@endsection
-
 @section('sidebar')
 
-@endsection
+
+  @endsection
 
 @section('Content')
     <form method="POST" action="{{route('news_feed.update',$edit_newsf[0]->id)}}" enctype="multipart/form-data">
@@ -45,8 +42,8 @@
             <input type="text" name="place" class="form-control" placeholder="Enter Place" value="{{$edit_newsf[0]->place}}">
         </div>
         <div class="form-group">
-            <label for="date">Date</label>
-            <input type="date" name="newsDate" class="form-control" placeholder="Enter Date" value="{{$edit_newsf[0]->newsDate}}">
+            <label for="text">Date</label>
+            <input type="text" name="newsDate" class="form-control" placeholder="Enter Date" value="{{$edit_newsf[0]->newsDate}}">
         </div>
         <div class="form-group">
             <label for="order">Path</label>

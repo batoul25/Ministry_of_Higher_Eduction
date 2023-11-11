@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BreakingNewsController;
 use App\Http\Controllers\LatestNewsController;
@@ -21,11 +22,9 @@ Route::resource('news_feed',NewsFeedController::class);
 Route::resource('institutions',InstitutionsController::class);
 //Institution's category section
 Route::resource('categories',InstitutionsCategoriesController::class);
+//Services section
+Route::resource('services', ServicesController::class);
 
 
 
-Route::view('/create' , 'admin\latest news\create');
-Route::view('/index' , 'admin\latest news\index');
-
-Route::view('/create/n' , 'admin\news feed\create');
 

@@ -20,13 +20,9 @@
     إنشاء
 @endsection
 
-@section('sidebar link name')
-    Institutions
-@endsection
-
 @section('sidebar')
 
-@endsection
+  @endsection
 
 @section('Content')
     <form method="POST" action="{{route('categories.store')}}" enctype="multipart/form-data">
@@ -34,6 +30,8 @@
         <div class="form-group">
             <label for="name">Category's Name</label>
             <input type="text" name="name" class="form-control">
+            <label for="order">Category's Order</label>
+            <input type="number" name="order" class = "form-control">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

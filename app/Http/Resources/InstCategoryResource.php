@@ -15,8 +15,9 @@ class InstCategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'    => $this->id,
             'order' => $this->order,
-            'name' => $this->name,
+            'name'  => $this->name,
 
         ];
     }

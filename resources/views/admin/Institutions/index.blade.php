@@ -20,13 +20,10 @@
     عرض الكل
 @endsection
 
-@section('sidebar link name')
-    Institutions
-@endsection
-
 @section('sidebar')
 
-@endsection
+  @endsection
+
 
 @section('Content')
     @if(session('message'))

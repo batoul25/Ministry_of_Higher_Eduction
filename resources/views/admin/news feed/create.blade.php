@@ -20,13 +20,12 @@
     إنشاء
 @endsection
 
-@section('sidebar link name')
-        News Feed
-@endsection
 
 @section('sidebar')
 
-@endsection
+
+  @endsection
+
 
 @section('Content')
     <form method="POST" action="{{route('news_feed.store')}}" enctype="multipart/form-data">
@@ -45,11 +44,11 @@
         </div>
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="date" name="newsDate" class="form-control" placeholder="Enter Date">
+            <input type="text" name="newsDate" class="form-control" placeholder="Enter Date">
         </div>
         <div class="form-group">
             <label for="order">Path</label>
-            <input type="text" name="path" class="form-control" placeholder="Enter Order">
+            <input type="text" name="path" class="form-control" placeholder="Enter Place">
         </div>
         <div class="form-group">
             <label for="order">Order</label>

@@ -20,15 +20,12 @@
     عرض الكل
 @endsection
 
-@section('sidebar link name')
-    News Feed
-@endsection
-
 @section('sidebar')
 
-@endsection
 
+  @endsection
 @section('Content')
+
     @if(session('message'))
        <div class="alert alert-danger"> {{session('message')}} </div>
     @elseif(session('created-message'))
@@ -52,7 +49,7 @@
                     <tr>
                       <th>Id</th>
                       <th>Title</th>
-                      <th>path</th>
+                      <th>Image</th>
                       <th>Place</th>
                       <th>Date</th>
                       <th>Order</th>
@@ -64,7 +61,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->title}}</td>
-                        <td>{{$item->path}}</td>
+                        <td><img src="{{$item->filename}}"></td>
                         <td>{{$item->place}}</td>
                         <td>{{$item->newsDate}}</td>
                         <td>{{$item->order}}</td>
