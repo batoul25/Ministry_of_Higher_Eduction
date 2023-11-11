@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\Controller;
 use Illuminate\Http\Request;
 use App\Models\BreakingNews;
 use App\Http\Requests\BreakingNewsRequest;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class BreakingNewsController extends Controller
 {
@@ -24,29 +26,50 @@ class BreakingNewsController extends Controller
     }
 
 //------store the requested data from the create page------------------//
-    public function store(BreakingNewsRequest $request)
-    {
-        $bnews = $request->validated();
-        //here we are using the "file" function to get the url of the image and
-        //store the image file using "store" function in 'public' disk inside 'images' folder.
-        $bnews_image = $request->file('filename')->store('images','public');
-        $existing_bnews = BreakingNews::where('title',$bnews)->first();
-        //check if this news has been added before or not
-        if($existing_bnews)
-        {
-            return redirect()->back()->with('alert','this news is added already');
-        }
-        $n_bnews = new BreakingNews();//create a new object (n_bnews)
+public function store(BreakingNewsRequest $request)
+{
+    $bnews = $request->validated();
 
-        //define the object's attributes
-        $n_bnews->title = $request->input('title');
-        $n_bnews->filename = $bnews_image;//image's url
-        $n_bnews->path = $request->input('path');
-        $n_bnews->description = $request->input('description');
-        //save the object  as a new record
-        $n_bnews->save();
-        return redirect(route('breaking_news.index'));
+    // Check if a file was uploaded
+    if ($request->hasFile('filename')) {
+        $file = $request->file('filename');
+
+        // Ensure the file is valid
+        if ($file->isValid()) {
+            // Generate a unique filename
+            $filename = $file->storeAs('images', $file->getClientOriginalName(), 'public');
+
+
+
+            $existing_bnews = BreakingNews::where('title', $bnews)->first();
+
+            // Check if this news has been added before or not
+            if ($existing_bnews) {
+                return redirect()->back()->with('alert', 'This news has already been added.');
+            }
+
+            $n_bnews = new BreakingNews();
+
+            // Set the object's attributes
+            $n_bnews->title = $request->input('title');
+            $n_bnews->filename = $filename; // Store the generated filename
+            $n_bnews->path = $file->getClientOriginalName();
+            $n_bnews->description = $request->input('description');
+
+            // Save the object as a new record
+            $n_bnews->save();
+        } else {
+            // File is not valid, handle the error
+            return redirect()->back()->with('alert', 'Invalid file. Please upload a valid image file.');
+        }
+    } else {
+        // No file was uploaded, handle the error
+        return redirect()->back()->with('alert', 'No file uploaded. Please select an image file to upload.');
     }
+     // Flash a success message to the session
+     Session::flash('created_message', 'Breaking news created successfully.');
+    return redirect(route('breaking_news.index'));
+}
 
 //------go to the edit page------------------//
     public function edit($id)
@@ -61,13 +84,24 @@ class BreakingNewsController extends Controller
         $updated_bnew = $request->validated();
         $old_bnew = BreakingNews::where('id',$id)->first();//find the desired record
         $old_bnew->update($updated_bnew);//update the old values(old_bnew) with the new (updated_bnew)
+         // Flash a success message to the session
+        Session::flash('updated_message', 'Breaking news updated successfully.');
         return redirect(route('breaking_news.index'));
     }
 
 //------remove an existing breaking news record------------------//
     public function destroy($id)
     {
-        $removed_bnew = BreakingNews::where('id',$id)->delete();//find the desired record and delete it
-        return redirect()->back();
+        $bnew = BreakingNews::find($id);//find the desired record and delete it
+        // Delete the associated image file
+
+    $filePath = 'public/images/' .$bnew->filename;
+    if (Storage::exists($filePath)) {
+        Storage::delete($filePath);
     }
+    $removed_bnew = $bnew->delete();
+    // Flash a success message to the session
+    Session::flash('message', 'Breaking news deleted successfully.');
+            return redirect()->back();
+        }
 }

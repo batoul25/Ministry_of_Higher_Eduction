@@ -20,13 +20,10 @@
     تعديل
 @endsection
 
-@section('sidebar link name')
-    Institutions
-@endsection
-
 @section('sidebar')
 
-@endsection
+
+  @endsection
 
 @section('Content')
     <form method="POST" action="{{route('institutions.update',$edit_inst[0]->id)}}" enctype="multipart/form-data">

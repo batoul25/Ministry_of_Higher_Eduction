@@ -6,6 +6,7 @@ use App\Models\Institutions;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstCategoryRequest;
 use App\Http\Controllers\Api\Controller;
+use Illuminate\Support\Facades\Session;
 
 class InstitutionsCategoriesController extends Controller
 {
@@ -27,14 +28,20 @@ class InstitutionsCategoriesController extends Controller
 //------store the requested data from the create page------------------//
     public function store(InstCategoryRequest $request)
     {
-        $cate = $request->validated();//validate the incoming data
-        $existing_cate = InstitutionCategory::where('name',$cate)->first();
-        //check if this news has been added before or not
-        if($existing_cate)
-        {
-            return redirect()->back()->with('alert','this category is added already');
+        $cate = $request->validated(); // validate the incoming data
+        $existing_cate = InstitutionCategory::where('name', $cate)->first();
+
+        // Check if this category has been added before
+        if ($existing_cate) {
+            return redirect()->back()->with('alert', 'This category is already added.');
         }
-        $n_cate = InstitutionCategory::create($cate);
+
+        $n_cate = InstitutionCategory::create([
+            'name' => $request->input('name'),
+            'order' => $request->input('order', 0) // Provide a default value of 0 if 'order' is not provided in the request
+        ]);
+
+        Session::flash('created-message', 'Category created successfully.');
         return redirect(route('categories.index'));
     }
 
@@ -42,7 +49,8 @@ class InstitutionsCategoriesController extends Controller
     public function edit($id)
     {
         $edit_cate = InstitutionCategory::where('id',$id)->get();
-        return view('admin.Categories.edit',compact('edit_cate'));
+        $category = InstitutionCategory::all();
+        return view('admin.Categories.edit',compact('edit_cate','category'));
     }
 
 //------update an existing category record------------------//
@@ -51,6 +59,7 @@ class InstitutionsCategoriesController extends Controller
         $updated_cate = $request->validated();
         $old_cate = InstitutionCategory::where('id',$id)->first();//find the desired record
         $old_cate->update($updated_cate);//update the old values(old_cate) with the new (updated_cate)
+        Session::flash('updated-message', 'Category updated successfully.');
         return redirect(route('categories.index'));
     }
 
@@ -66,6 +75,7 @@ class InstitutionsCategoriesController extends Controller
             return redirect()->back()->with('alert','there is an institution that is related to this category...');
         }
         $removed_cate = InstitutionCategory::where('id',$id)->delete();//find the desired record and delete it
+        Session::flash('message', 'Category deleted successfully.');
         return redirect()->back();
     }
 }

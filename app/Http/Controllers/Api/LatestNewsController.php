@@ -39,7 +39,7 @@ class LatestNewsController extends Controller
             $news = LatestNews::find($id);
             return $this->successResponse(new LatestNewsResource($news),'Retrived Successfully');
         }catch(\Exception $exc){
-            return $this->errorResponse('The news is not found' , 404);
+            return $this->errorResponse('The news is not found' , 401);
         }
 
     }

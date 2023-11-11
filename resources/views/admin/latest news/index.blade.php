@@ -20,13 +20,10 @@
     عرض الكل
 @endsection
 
-@section('sidebar link name')
-    Latest News
-@endsection
-
 @section('sidebar')
 
-@endsection
+
+  @endsection
 
 @section('Content')
     @if(session('message'))

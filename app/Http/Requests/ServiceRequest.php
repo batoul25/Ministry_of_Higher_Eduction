@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SeviceRequest extends FormRequest
+class ServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +15,7 @@ class SeviceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +27,18 @@ class SeviceRequest extends FormRequest
     {
         return [
             //
-            'name' => ['required','string','min:5' ,'max:50']
+            'name' => ['required','string','min:5' ,'max:50'] ,
+            'logo' => ['required'],
+            'path' => ['required']
         ];
     }
+
+        //if there is an error with the validation display the error as a Json response.
+        protected function failedValidation(Validator $validator)
+        {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Validation Error',
+                'errors' => $validator->errors(),
+            ], 422));
+        }
 }

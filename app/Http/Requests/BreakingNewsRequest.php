@@ -20,8 +20,9 @@ class BreakingNewsRequest extends FormRequest
     //Get the validation rules that apply to the request.
     public function rules()
     {
+        // mimes:jpg,png,jpeg,gif,svg
         return [
-            'filename' => ['required','image|mimes:jpg,png,jpeg,gif,svg','max:2048'],
+            'filename' => ['required','image','mimes:jpg,png,jpeg,gif,svg','max:2048'],
             'path'     => ['required','string', 'min:10', 'max:100'],
             'title'     => ['required','string', 'min:15', 'max:100'],
             'description'     => ['required','string', 'min:15', 'max:300'],

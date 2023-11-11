@@ -20,13 +20,10 @@
     إنشاء
 @endsection
 
-@section('sidebar link name')
-    Latest News
-@endsection
-
 @section('sidebar')
 
-@endsection
+  @endsection
+
 
 @section('Content')
     <form method="POST" action="{{route('latest_news.store')}}" enctype="multipart/form-data">

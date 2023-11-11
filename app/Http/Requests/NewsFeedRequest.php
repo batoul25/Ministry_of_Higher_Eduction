@@ -24,6 +24,7 @@ class NewsFeedRequest extends FormRequest
             'place'    => ['required' , 'string' , 'min:3' , 'max:20'] ,
             'order'    => ['numeric' , 'integer' , 'min:1' , 'between:1,20'],
             'path'     => ['required','string', 'min:10', 'max:100'],
+            'newsDate' => ['required']
         ];
     }
 

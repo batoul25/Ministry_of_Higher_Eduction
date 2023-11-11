@@ -20,13 +20,10 @@
     تعديل
 @endsection
 
-@section('sidebar link name')
-    Breaking News
-@endsection
-
 @section('sidebar')
 
-@endsection
+
+  @endsection
 
 @section('Content')
     <form method="POST" action="{{route('breaking_news.update',$edit_bnew[0]->id)}}" enctype="multipart/form-data">

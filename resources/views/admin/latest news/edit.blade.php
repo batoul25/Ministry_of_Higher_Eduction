@@ -20,13 +20,11 @@
     تعديل
 @endsection
 
-@section('sidebar link name')
-    Latest News
-@endsection
-
 @section('sidebar')
 
-@endsection
+
+  @endsection
+
 
 @section('Content')
     <form method="POST" action="{{route('latest_news.update',$edit_lnew[0]->id)}}" enctype="multipart/form-data">

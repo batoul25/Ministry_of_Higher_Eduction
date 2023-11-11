@@ -20,15 +20,15 @@ Route::group(['prefix'=>'institutions'],function(){
 //show all institutions
 Route::get('/inst',[InstitutionsController::class,'index']);
 //show a specific institution
-Route::get('/inst/{instid}',[InstitutionsController::class,'show']);
-//insert new institution
-Route::post('/inst',[InstitutionsController::class,'store']);
-//update existing institution\\
-Route::post('/inst/{instid}',[InstitutionsController::class,'update']);
-//remove existing institution\\
-Route::delete('/inst/{instid}',[InstitutionsController::class,'destroy']);
-//remove all Institutions
-Route::get('/destroyall',[InstitutionsController::class,'destroy_all']);
+Route::get('/inst/{category_id}',[InstitutionsController::class,'show']);
+// //insert new institution
+// Route::post('/inst',[InstitutionsController::class,'store']);
+// //update existing institution\\
+// Route::post('/inst/{instid}',[InstitutionsController::class,'update']);
+// //remove existing institution\\
+// Route::delete('/inst/{instid}',[InstitutionsController::class,'destroy']);
+// //remove all Institutions
+// Route::get('/destroyall',[InstitutionsController::class,'destroy_all']);
 });
 
 //show all categories

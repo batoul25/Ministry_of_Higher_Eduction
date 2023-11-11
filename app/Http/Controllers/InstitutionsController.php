@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\InstitutionsRequest;
 use App\Http\Controllers\Api\Controller;
 use App\Models\InstitutionCategory;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -37,6 +38,7 @@ class InstitutionsController extends Controller
             return redirect()->back()->with('alert','this institution is added already');
         }
         $n_inst = Institutions::create($inst);
+        Session::flash('created-message', 'Institutions created successfully.');
         return redirect(route('institutions.index'));
     }
 
@@ -54,6 +56,7 @@ class InstitutionsController extends Controller
         $updated_inst = $request->validated();
         $old_inst = Institutions::where('id',$id)->first();//find the desired record
         $old_inst->update($updated_inst);//update the old values(old_inst) with the new (updated_inst)
+        Session::flash('updated-message', 'Institutions updated successfully.');
         return redirect(route('institutions.index'));
     }
 
@@ -61,6 +64,7 @@ class InstitutionsController extends Controller
     public function destroy($id)
     {
         $removed_inst = Institutions::where('id',$id)->delete();//find the desired record and delete it
+        Session::flash('message', 'Institutions deleted successfully.');
         return redirect()->back();
     }
 }
