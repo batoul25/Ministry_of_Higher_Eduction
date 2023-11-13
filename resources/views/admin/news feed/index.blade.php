@@ -40,7 +40,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                  <h3 class="card-title">News Feed DataTable</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -61,7 +61,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->title}}</td>
-                        <td><img src="{{$item->filename}}"></td>
+                          <td><img src="  {{ URL::asset("http://localhost:8000/images/{$item->filename}")}}" height="150px" width="200px"> </td>
                         <td>{{$item->place}}</td>
                         <td>{{$item->newsDate}}</td>
                         <td>{{$item->order}}</td>
