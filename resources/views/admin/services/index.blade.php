@@ -39,7 +39,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                  <h3 class="card-title">Services DataTable</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -58,7 +58,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->name}}</td>
-                        <td><img src="{{$item->logo}}"></td>
+                       <td><img src="{{ URL::asset("http://localhost:8000/logos/{$item->logo}")}}" height="50px" width="50px"></td>
                         <td>{{$item->path}}</td>
                         <td>
                             <a href="{{route('services.edit',$item->id)}}"><button  class="btn btn-warning">Edit</button></a>
